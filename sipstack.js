@@ -55,7 +55,7 @@ var SipStack = function () {};
 	SipStack.appSip.use('invite', function( req, res){
     	console.log('INviTE recieved: %s, %s', JSON.stringify(res),JSON.stringify(req.body) ) ;
     	var callId = res.msg.headers['call-id'];
-    //	console.log('INVITE recieved: %s index %s' , JSON.stringify(req),callId ) ;
+    	console.log('INVITE recieved: %s index %s' , JSON.stringify(req),callId ) ;
 			// get sessionId
 
 
@@ -77,8 +77,10 @@ var SipStack = function () {};
 					});
 				});
 			}
-			else
+			else{
+				console.log('sending 404') ;
 				res.send(404) ;
+			}
 	 }) ;
 
 
