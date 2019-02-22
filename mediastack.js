@@ -344,13 +344,15 @@ MediaStack.prototype.renegotiateResponse = function (sessionId,sdp){
 }
 
 MediaStack.prototype.renegotiateRTP = function (sessionId, remoteSdp,callback){
+  console.log("renegotiateRTP");
   if (MediaStack.sessions[sessionId] && MediaStack.sessions[sessionId].pipeline){
     var pipeline = MediaStack.sessions[sessionId].pipeline;
-
+    console.log("1");
     MediaStack.sessions[sessionId].rtpEndpoint.release();
-
+    console.log("2");
     pipeline.create('RtpEndpoint', function(error, rtpEndpoint){
         if (error) {
+            console.log("pipeline.create - error");
             return callback(error);
         }
         rtpEndpoint.processOffer(remoteSdp,function(error,sdpOffer) {
@@ -361,6 +363,7 @@ MediaStack.prototype.renegotiateRTP = function (sessionId, remoteSdp,callback){
               }
               var modSdp =  replace_ip(sdpOffer);
               modSdp = mungleSDP(modSdp);
+              console.log(modSdp);
               MediaStack.sessions[sessionId].rtpEndpoint = rtpEndpoint;
 
               return callback(modSdp);
