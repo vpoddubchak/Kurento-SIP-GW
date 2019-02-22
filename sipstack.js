@@ -64,6 +64,7 @@ var SipStack = function () {};
 				var remoteSdpStr = req.body;
 				var dialog =  SipStack.dialogs[sessionId];
 				SipStack.mediastack.renegotiateRTP(sessionId,remoteSdpStr,function(newLocalSdp){
+					console.log('result sdp: %s', newLocalSdp ) ;
 					res.send( 200,{
 						body: newLocalSdp
 					},function(err, response){
